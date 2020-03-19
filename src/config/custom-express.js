@@ -9,7 +9,7 @@ module.exports = () =>{
     app.use(bodyParser.json())
 
     consign()
-        .include('./src/app/controllers/atendimentos.js')
+        .include('./src/app/routes/routes.js')
         .into(app)
 
     return app
