@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+    
+    db:
+        restart: always
+        image: mysql
+        environment: 
+            MYSQL_DATABASE: 'agenda-petshop'
+            MYSQL_ROOT_PASSWORD: 'mysql'
+        ports: 
+            - '3306:3306'
+        
+    adminer:
+        image: adminer
+        ports: 
+           - 8080:8080
