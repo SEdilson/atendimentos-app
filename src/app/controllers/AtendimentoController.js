@@ -3,24 +3,42 @@ const atendimentoDao = new AtendimentoDao()
 
 class AtendimentoController {
 
-    listaAtendimentos(resp) {
-        atendimentoDao.lista(resp)
+    listaAtendimentos() {
+        return (req, resp) => {
+            atendimentoDao.lista(resp)
+        }
     }
 
-    adicionaAtendimento(atendimento, resp) {
-        atendimentoDao.adiciona(atendimento, resp)
+    adicionaAtendimento() {
+        return (req, resp) => {
+            const atendimentoAdicionado = req.body
+    
+            atendimentoDao.adiciona(atendimentoAdicionado, resp)
+        }
     }
 
-    buscaAtendimentoPorId(id, resp) {
-        atendimentoDao.buscaPorId(id, resp)
+    buscaAtendimentoPorId() {
+        return (req, resp) => {
+            const id = parseInt(req.params.id)
+    
+            atendimentoDao.buscaPorId(id, resp)
+        }
     }
 
-    alteraAtendimento(id, valores, resp) {
-        atendimentoDao.altera(id, valores, resp)
+    alteraAtendimento() {
+        return (req, resp) => {
+            const id = parseInt(req.params.id)
+    
+            atendimentoDao.altera(id, req.body, resp)
+        }
     }
 
-    removeAtendimento(id, resp) {
-        atendimentoDao.remove(id, resp)
+    removeAtendimento() {
+        return (req, resp) => {
+            const id = parseInt(req.params.id)
+    
+            atendimentoDao.remove(id, resp)
+        }
     }
 }
 
