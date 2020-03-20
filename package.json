@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 100000"
   },
   "author": "Edilson Silva",
   "license": "ISC",
@@ -17,6 +17,10 @@
     "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "nodemod": "^2.5.0"
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^7.1.1",
+    "nodemod": "^2.5.0",
+    "should": "^13.2.3"
   }
 }

@@ -19,10 +19,11 @@ class AtendimentoDao {
             const sql = 'INSERT INTO atendimentos SET ?'
     
             conexao.query(sql, atendimentoDatado, (erro, resultados) => {
+                let id = resultados.insertId
                 if(erro) {
                     resp.status(400).json(erro)
                 } else {
-                    resp.status(201).json(resultados)
+                    resp.status(201).json({id, ...atendimentoDatado})
                 }
             })
         }
@@ -62,7 +63,7 @@ class AtendimentoDao {
             if(erro) {
                 resp.status(400).json(erro)
             } else {
-                resp.status(200).json(resultados)
+                resp.status(200).json({id, ...valores})
             }
         })
     }
@@ -74,7 +75,10 @@ class AtendimentoDao {
             if(erro) {
                 resp.status(400).json(erro)
             } else {
-                resp.status(204).json('Atendimento deletado com sucesso')
+                resp.status(204).json({
+                    status: "Atendimento removido com sucesso",
+                    id
+                })
             }
         })
     }
