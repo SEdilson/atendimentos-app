@@ -1,8 +1,7 @@
 const mysql = require('mysql')
 
 const conexao = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
+    host: 'db',
     user: 'root',
     password: 'mysql',
     database: 'agenda-petshop'

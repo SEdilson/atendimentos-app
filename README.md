@@ -6,7 +6,7 @@ App made to learn rest with nodejs
 - [NodeJS](https://nodejs.org)
 - [Express](https://expressjs.com)
 - [MySQL](https://www.mysql.com)
-- [Docker-compose](https://docs.docker.com/compose/)
+- [Docker](https://docs.docker.com)
 
 ### Steps
 
@@ -20,31 +20,17 @@ App made to learn rest with nodejs
     npm install
 ```
 
-3 - Rode o banco:  
+3 - Rode a aplicação:  
 ```
-    docker-compose up -d
-```
-
-4 - Rode a aplicação:  
-```
-    npm start
+    docker-compose up --build
 ```
 
-__Note__: No primeiro acesso talvez ele dê o seguinte erro __client does not support authentication protocol requested by server__, para consertar tal comportamento siga esses passos:  
-
-1 - Rode o seguinte comando para entrar no bash do mysql:  
-
+4 - Vá até:  
 ```
-    docker exec -it mysql bash
+    localhost:3000/atendimentos
 ```
 
-2 - Uma vez dentro do bash entre no banco e altere o tipo de hash de senha para o padrão antigo:  
-
+- Para acessar o banco vá até:
 ```
-    mysql -u root -p
-    senha: mysql
-
-    ALTER USER root IDENTIFIED WITH mysql_native_password BY 'mysql';
+    localhost:8080
 ```
-
-- Feitas essas alterações reinicie a aplicação e veja se está tudo rodando
