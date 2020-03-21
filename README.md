@@ -30,6 +30,11 @@ App made to learn rest with nodejs
     localhost:3000/atendimentos
 ```
 
+- Para rodar os testes:  
+```
+    docker-compose run webapp npm test
+```
+
 - Para acessar o banco vá até:
 ```
     localhost:8080

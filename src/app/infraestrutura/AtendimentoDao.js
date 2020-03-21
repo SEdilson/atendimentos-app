@@ -75,7 +75,7 @@ class AtendimentoDao {
             if(erro) {
                 resp.status(400).json(erro)
             } else {
-                resp.status(204).json({
+                resp.status(200).json({
                     status: "Atendimento removido com sucesso",
                     id
                 })
