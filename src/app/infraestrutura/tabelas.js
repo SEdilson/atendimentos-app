@@ -5,6 +5,7 @@ class Tabelas {
         this.conexao = conexao
 
         this.criaTabelaDeAtendimentos()
+        this.criaTabelaDeUsuarios()
     }
 
     criaTabelaDeAtendimentos() {
@@ -15,6 +16,25 @@ class Tabelas {
             observacoes text, PRIMARY KEY(id))`
 
         this.conexao.query(sql, (erro) => {
+            if(erro) {
+                console.log(erro)
+            }
+        })
+    }
+
+    criaTabelaDeUsuarios() {
+        const sql = `CREATE TABLE IF NOT EXISTS usuarios (id int NOT NULL AUTO_INCREMENT,
+            usuario varchar(30) NOT NULL, senha varchar(20) NOT NULL, PRIMARY KEY(id));`
+
+        const createUserSql = `INSERT INTO usuarios (usuario, senha) VALUES ('edilson', 123);`
+
+        this.conexao.query(sql, (erro) => {
+            if(erro) {
+                console.log(erro)
+            }
+        })
+
+        this.conexao.query(createUserSql, (erro) => {
             if(erro) {
                 console.log(erro)
             }

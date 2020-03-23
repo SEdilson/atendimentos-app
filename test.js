@@ -76,7 +76,7 @@ describe('Atendimentos', () =>  {
 
     describe('GET atendimento pelo id', () => {
         it('Testando captura de atendimento pelo id', () => {
-            let id_ = 3
+            let id_ = 1
             chai.request('http://localhost:3000')
                 .get(`/atendimentos/${id_}`)
                 .end((erro, resp) => {

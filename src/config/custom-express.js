@@ -8,6 +8,7 @@ app.use(bodyParser.json())
 
 consign()
     .include('./src/app/routes/routes.js')
+    .include('./src/config/jwt-authentication.js')
     .into(app)
 
 module.exports = app
