@@ -1,13 +1,35 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
-const database = require('./src/config/database')
 const expect = require('chai').expect
+const database = require('./src/config/database')
 const server = require('./index')
 const Atendimento = require('./src/app/models/Atendimento')
 
 chai.use(chaiHttp)
 
 describe('Atendimentos', () =>  {
+    const credenciais = {
+        username: 'edilson',
+        senha: '123'
+    }
+
+    let token;
+
+    before((done) => {
+        chai.request('http://localhost:3000')
+            .post('/login')
+            .send(credenciais)
+            .end((erro, resp) => {
+                expect(resp.status).to.equal(200)
+                expect(resp.body).have.property('token')
+                expect(resp.body.success).to.equal(true)
+                token = resp.body.token
+                console.log(token)
+                done()
+            })
+
+        // console.log(token)
+    })
 
     beforeEach(() => {
         new Atendimento({cliente: "Edilson",
@@ -24,6 +46,7 @@ describe('Atendimentos', () =>  {
             chai.request('http://localhost:3000')
                 .get('/atendimentos')
                 .set('Accept', 'application/json')
+                .set('Authentication', token)
                 .end((erro, resp)  => {
                     expect(resp.status).to.equal(200)
                     expect(resp.body).to.be.a('array')
@@ -45,6 +68,7 @@ describe('Atendimentos', () =>  {
 
             chai.request('http://localhost:3000')
                 .post('/atendimentos')
+                .set('Authentication', token)
                 .send(atendimento_post)
                 .end((erro, resp) => {
                     expect(resp.status).to.equal(201)
@@ -65,6 +89,7 @@ describe('Atendimentos', () =>  {
             }
             chai.request('http://localhost:3000')
                 .post('/atendimentos')
+                .set('Authentication', token)
                 .send(atendimento_invalido)
                 .end((erro, resp) => {
                     expect(resp.status).to.equal(400)
@@ -79,6 +104,7 @@ describe('Atendimentos', () =>  {
             let id_ = 1
             chai.request('http://localhost:3000')
                 .get(`/atendimentos/${id_}`)
+                .set('Authentication', token)
                 .end((erro, resp) => {
                     expect(resp.status).to.equal(200)
                     expect(resp.body).property('id').to.equal(id_)
@@ -97,6 +123,7 @@ describe('Atendimentos', () =>  {
         it('Testando atualização de atendimento', (done) => {
             chai.request('http://localhost:3000')
                 .get('/atendimentos')
+                .set('Authentication', token)
                 .end((erro, resp) => {
                     chai.request('http://localhost:3000')
                         .put(`/atendimentos/${resp.body[0].id}`)
@@ -119,6 +146,7 @@ describe('Atendimentos', () =>  {
         it('Testando deleção de atendimento', (done) => {
             chai.request('http://localhost:3000')
                 .get('/atendimentos')
+                .set('Authentication', token)
                 .end((erro, resp) => {
                     chai.request('http://localhost:3000')
                         .delete(`/atendimentos/${resp.body[1].id}`)

@@ -1,10 +1,7 @@
 const AtendimentoController = require('../controllers/AtendimentoController')
 const atendimentoController = new AtendimentoController()
-const loginRoutes = require('./login-routes')
 
 module.exports = (app) => {
-    loginRoutes(app)
-
     app.route('/atendimentos')
         .get(atendimentoController.listaAtendimentos())
         .post(atendimentoController.adicionaAtendimento())

@@ -6,23 +6,22 @@ class LoginController {
 
     static routes() {
         return {
-            index: '/',
             login: '/login'
         }
     }
 
     login() {
         return (req, resp) => {
-            let username = req.body.usuario
+            let username = req.body.username
             let senha = req.body.senha
-    
+
             const usuarioDao = new UsuarioDao()
 
             if(username && senha) {
                 usuarioDao.buscaPorUsuario(username)
                             .then(usuario => {
-                                if(usuario.usuario = username && usuario.senha == senha) {
-                                    let token = jwt.sign({usuario: usuario},
+                                if(username === usuario.username && senha === usuario.senha) {
+                                    let token = jwt.sign({usuario: usuario.username},
                                         process.env.SECRET,
                                         {expiresIn: '24h'})
     
@@ -32,15 +31,15 @@ class LoginController {
                                         token: token
                                     })
                                 } else {
-                                    resp.send(403).json({
+                                    resp.status(401).send({
                                         success: false,
-                                        message: 'Usuario ou senha incorretas'
+                                        message: 'Usuário ou senha incorretas'
                                     })
                                 }
                             })
                             .catch(erro => console.log(erro))
             } else  {
-                resp.send(400).json({
+                resp.send(500).json({
                     success: false,
                     message: 'Falha na autenticacao! Favor checar as credenciais'
                 })
